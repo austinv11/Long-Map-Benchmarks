@@ -12,7 +12,7 @@ public class MapTests {
 	@State(Scope.Benchmark)
 	public static class Context {
 		
-		private static final int ARRAY_SIZE = 64_000;
+		private static final int ARRAY_SIZE = 32_000;
 
 		public long[] testKeys;
 		public Object[] testValues;
@@ -44,7 +44,7 @@ public class MapTests {
 		}
 
 		private Object randObject() {
-			switch (random.nextInt(9)) {
+			switch (random.nextInt(8)) {
 				case 0: //Int
 					return Integer.MIN_VALUE + random.nextInt(Integer.MAX_VALUE);
 				case 1: //Long
@@ -60,15 +60,13 @@ public class MapTests {
 					random.nextBytes(bytes);
 					return bytes;
 				case 6: //String
-					int length = random.nextInt(ARRAY_SIZE);
+					int length = random.nextInt(ARRAY_SIZE / 2);
 					StringBuilder buffer = new StringBuilder(length);
 					for (int i = 0; i < length; i++)
 						buffer.append((char)random.nextInt(Character.MAX_VALUE));
 					return buffer.toString();
 				case 7: //Arbitrary object
 					return new ArbitraryPOJO();
-				case 8: //Null
-					return null;
 			}
 			return null;
 		}

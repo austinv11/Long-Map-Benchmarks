@@ -11,7 +11,7 @@ public class MapTests {
 	@State(Scope.Benchmark)
 	public static class Context {
 		
-		private static final int MAX_ARRAY_SIZE = 2500;
+		private static final int ARRAY_SIZE = 64_000;
 
 		public long[] testKeys;
 		public Object[] testValues;
@@ -21,10 +21,9 @@ public class MapTests {
 		@Setup(Level.Trial)
 		public void init() {
 			random = new Random();
-			int size = random.nextInt(MAX_ARRAY_SIZE);
-			testKeys = new long[size];
-			testValues = new Object[size];
-			testValues2 = new Object[size];
+			testKeys = new long[ARRAY_SIZE];
+			testValues = new Object[ARRAY_SIZE];
+			testValues2 = new Object[ARRAY_SIZE];
 			populateData();
 		}
 
@@ -56,12 +55,12 @@ public class MapTests {
 				case 4: //Double
 					return random.nextDouble();
 				case 5: 
-					byte[] bytes = new byte[random.nextInt(MAX_ARRAY_SIZE)];
+					byte[] bytes = new byte[random.nextInt(ARRAY_SIZE)];
 					random.nextBytes(bytes);
 					return bytes;
 				case 6: //String
-					int length = random.nextInt(MAX_ARRAY_SIZE);
-					StringBuffer buffer = new StringBuffer(length);
+					int length = random.nextInt(ARRAY_SIZE);
+					StringBuilder buffer = new StringBuilder(length);
 					for (int i = 0; i < length; i++)
 						buffer.append((char)random.nextInt(Character.MAX_VALUE));
 					return buffer.toString();
@@ -131,7 +130,7 @@ public class MapTests {
 		
 		for (int i = 0; i < context.testValues.length/2; i++) {
 			map.get(context.testKeys[context.random.nextInt(context.testKeys.length)]); //Successful call
-			map.get(Integer.MAX_VALUE/2-context.random.nextInt(Integer.MAX_VALUE/2)-1); //Unsuccessful call
+			map.get(Integer.MIN_VALUE+context.random.nextInt(Integer.MAX_VALUE)-1); //Unsuccessful call
 		}
 	}
 	

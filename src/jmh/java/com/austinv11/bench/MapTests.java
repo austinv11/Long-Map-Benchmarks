@@ -5,6 +5,7 @@ import org.openjdk.jmh.annotations.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MapTests {
 	
@@ -181,5 +182,26 @@ public class MapTests {
 		synchronized (map) {
 			mapPutRemove(context, map);
 		}
+	}
+	
+	@Benchmark
+	public void concurrentHashMapGet(Context context) {
+		ConcurrentHashMap<Long, Object> map = new ConcurrentHashMap<>();
+		
+		mapGet(context, map);
+	}
+	
+	@Benchmark
+	public void concurrentHashMapPutUpdate(Context context) {
+		ConcurrentHashMap<Long, Object> map = new ConcurrentHashMap<>();
+		
+		mapPutUpdate(context, map);
+	}
+	
+	@Benchmark
+	public void concurrentHashMapPutRemove(Context context) {
+		ConcurrentHashMap<Long, Object> map = new ConcurrentHashMap<>();
+		
+		mapPutRemove(context, map);
 	}
 }

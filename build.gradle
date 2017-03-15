@@ -24,22 +24,26 @@ repositories {
 
 jmh {
     jmhVersion = 1.12
+//    warmupIterations = 2
     iterations = 30
     resultFormat = 'CSV'
     verbosity = "EXTRA"
     duplicateClassesStrategy = 'warn'
+    benchmarkMode = ['all']
+    threads = 10
+    timeUnit = 'ms'
 }
 
 dependencies {
+    compileOnly 'org.openjdk.jmh:jmh-core:1.12'
+    compileOnly 'org.openjdk.jmh:jmh-generator-annprocess:1.12'
+    
     //http://fastutil.di.unimi.it/
     compile 'it.unimi.dsi:fastutil:7.1.0'
 
     //https://www.eclipse.org/collections/
     compile 'org.eclipse.collections:eclipse-collections-api:8.0.0'
     compile 'org.eclipse.collections:eclipse-collections:8.0.0'
-
-    //http://www.mapdb.org/
-    compile 'org.mapdb:mapdb:3.0.3'
 
     //https://koloboke.com/
     compile 'com.koloboke:koloboke-api-jdk8:1.0.0'

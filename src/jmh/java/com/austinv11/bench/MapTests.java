@@ -25,7 +25,7 @@ public class MapTests {
 	@State(Scope.Benchmark)
 	public static class Context {
 		
-		private static final int ARRAY_SIZE = 32_000;
+		private static final int ARRAY_SIZE = 1_000;
 
 		public long[] testKeys;
 		public Object[] testValues;
@@ -73,7 +73,7 @@ public class MapTests {
 					random.nextBytes(bytes);
 					return bytes;
 				case 6: //String
-					int length = random.nextInt(ARRAY_SIZE / 2);
+					int length = random.nextInt(ARRAY_SIZE / 4);
 					StringBuilder buffer = new StringBuilder(length);
 					for (int i = 0; i < length; i++)
 						buffer.append((char)random.nextInt(Character.MAX_VALUE));
@@ -86,19 +86,17 @@ public class MapTests {
 
 		public class ArbitraryPOJO {
 
-			public Object obj1, obj2, obj3;
+			public Object obj1, obj2;
 
 			public ArbitraryPOJO() {
 				obj1 = randObject();
 				obj2 = randObject();
-				obj3 = randObject();
 			}
 
 			@Override
 			public int hashCode() {
 				int result = obj1 != null ? obj1.hashCode() : 0;
 				result = 31*result+(obj2 != null ? obj2.hashCode() : 0);
-				result = 31*result+(obj3 != null ? obj3.hashCode() : 0);
 				return result;
 			}
 
@@ -113,9 +111,7 @@ public class MapTests {
 
 				if (obj1 != null ? !obj1.equals(that.obj1) : that.obj1 != null)
 					return false;
-				if (obj2 != null ? !obj2.equals(that.obj2) : that.obj2 != null)
-					return false;
-				return obj3 != null ? obj3.equals(that.obj3) : that.obj3 == null;
+				return obj2 != null ? obj2.equals(that.obj2) : that.obj2 == null;
 			}
 
 			@Override

@@ -24,8 +24,8 @@ repositories {
 
 jmh {
     jmhVersion = 1.12
-//    warmupIterations = 2
-    iterations = 30
+    warmupIterations = 10
+    iterations = 10
     resultFormat = 'CSV'
     verbosity = "EXTRA"
     duplicateClassesStrategy = 'warn'

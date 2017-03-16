@@ -30,7 +30,7 @@ jmh {
     verbosity = "EXTRA"
     duplicateClassesStrategy = 'warn'
     benchmarkMode = ['all']
-    threads = 10
+//    threads = 10
     timeUnit = 'ms'
 }
 
